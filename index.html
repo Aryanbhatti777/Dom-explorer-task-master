@@ -7,7 +7,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+    <nav>
+        <h1>Task Master</h1>
+        <div>
+            <button class="nav-btn">Add Task</button>
+            <button class="cancel">Cancel</button>
+        </div>
+    </nav>
+
+    <main>
+        <div class="form">
+            <form>
+                <input type="text" placeholder="Task..." required>
+                <input type="text" placeholder="Description..." required>
+                <select name="" id="">
+                    <option value="work">Work</option>
+                    <option value="study">Study</option>
+                    <option value="health">Health</option>
+                    <option value="personal">Personal</option>
+                    <option value="chill">Chill</option>
+                </select>
+                <input type="submit" value="Add Task">
+            </form>
+        </div>
+    </main>
 
     <script src="script.js"></script>
 </body>

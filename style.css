@@ -33,3 +33,44 @@ nav button{
 nav button:hover{
     background-color: rgba(5, 5, 99, 0.774);
 }
+
+main{
+    height: 100%;
+    width: 100%
+}
+
+.form{
+    width: 100%;
+    background-color: rgb(29, 28, 28);
+    padding: 2rem;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+form{
+    display: flex;
+    gap: 2rem
+}
+
+form input{
+    padding: 1.2rem;
+    width: 20vw;
+    border-radius: 0.4rem
+}
+
+select{
+    width: 15vw;
+    padding: 1rem;
+    font-size: 1rem;
+    border-radius: 0.4rem
+}
+
+input[type="submit"]{
+    width: 10vw;
+    font-size: 1rem;
+}
+
+.cancel{
+    display: none
+}
