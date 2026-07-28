@@ -70,9 +70,12 @@ form{
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: black;
+    padding: 2rem;
     gap: 2rem;
-    width: 100%;
-    background-color: transparent;
+    /* width: 100%; */
+    background-color: rgba(255, 255, 255, 0.826);
+    border-radius: 1rem
 }
 
 form input{
@@ -80,6 +83,7 @@ form input{
     width: 40vw;
     border-radius: 0.4rem;
     font-size: 1rem;
+    border: 1px solid black
 }
 
 select{
