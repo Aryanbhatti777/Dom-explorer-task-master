@@ -108,7 +108,8 @@ input[type="submit"]{
 .task-top p{
     padding: 0.5rem 1rem;
     background-color: grey;
-    border-radius: 1rem
+    border-radius: 1rem;
+    color: black
 }
 
 .task>p{

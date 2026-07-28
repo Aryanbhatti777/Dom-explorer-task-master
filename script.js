@@ -4,6 +4,8 @@ const form = document.querySelector("form");
 const nav_btn_cancel = document.querySelector(".cancel")
 const tasks_div = document.querySelector(".tasks")
 const text = document.querySelector(".no-tasks")
+const clearAll = document.querySelector(".clear-all")
+
 
 nav_btn.addEventListener("click", () => {
     form_div.style.display = "flex";
@@ -51,38 +53,79 @@ form.addEventListener("submit", (e) => {
 const showTasks = () => {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-    // console.log(tasks)
+    if(tasks.length === 0){
+        tasks_div.innerHTML = `<h3>No Tasks Added Yet.</h3>`
+    }else{
 
-    tasks.forEach(item => {
+        tasks_div.innerHTML = ""
+
+        tasks.forEach(item => {
 
         const element = document.createElement("div")
 
         element.classList.add("task");
 
-        element.innerHTML += `<div class="task">
-                <div class="task-top">
-                    <h1>${item.task}</h1>
-                    <p>${item.category}</p>
-                    
-                </div>
-                <p>${item.description}</p>
-                <div>
-                    <button class="complete">Complete</button>
-                    <button class="edit">Edit</button>
-                    <button class="delete">Delete</button>
-                </div>
-            </div>`
+        element.innerHTML = `
+    <div class="task">
+        <div class="task-top">
+            <h1>${item.task}</h1>
+            <p>${item.category}</p>
+        </div>
+        <p>${item.description}</p>
+        <div>
+            <button class="complete">
+                ${item.isCompleted ? "Completed" : "Complete"}
+            </button>
+            <button class="edit" style="display:${item.isCompleted ? "none" : "inline-block"}">
+                Edit
+            </button>
+            <button class="delete">Delete</button>
+        </div>
+    </div>
+`;
 
+            const edit = element.querySelector(".edit")
 
+            element.querySelector(".complete").addEventListener("click", () => {
+                markComplete(item,edit)
+            })
 
+            element.querySelector(".delete").addEventListener("click", () => {
+                deleteTask(item)
+            })
+
+            
 
         tasks_div.append(element)
 
 
 
     });
+    }
 
 
 }
+
+const markComplete = (item, edit) => {
+    const arr = JSON.parse(localStorage.getItem("tasks")) || [];
+    
+
+    const task = arr.find((taskItem) => taskItem.id === item.id)
+    
+    task.isCompleted = true;
+    
+    
+    localStorage.setItem("tasks", JSON.stringify(arr))
+
+    if(task.isCompleted){
+        edit.style.display = "none"
+    }
+    showTasks()
+    
+}
+
+
+
+
 
 showTasks()
