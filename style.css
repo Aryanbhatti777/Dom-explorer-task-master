@@ -78,7 +78,8 @@ form{
 form input{
     padding: 1.2rem;
     width: 40vw;
-    border-radius: 0.4rem
+    border-radius: 0.4rem;
+    font-size: 1rem;
 }
 
 select{
@@ -91,16 +92,22 @@ select{
 input[type="submit"]{
     width: 15vw;
     font-size: 1rem;
-    cursor: pointer
+    color: white;
+    border: none;
+    cursor: pointer;
+    background-color: rgba(10, 10, 128, 0.774);
 }
 
 .cancel{
     display: none;
     padding: 1.2rem;
     border-radius: 0.4rem;
+    border: none;
     font-size: 1rem;
     width: 15vw;
-    cursor: pointer
+    cursor: pointer;
+    color: white;
+    background-color: rgba(10, 10, 128, 0.774);
 }
 
 .tasks{
