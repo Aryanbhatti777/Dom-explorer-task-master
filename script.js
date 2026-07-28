@@ -124,8 +124,20 @@ const markComplete = (item, edit) => {
     
 }
 
+clearAll.addEventListener("click", () => {
+    localStorage.removeItem("tasks")
+    showTasks()
+})
 
+const deleteTask = (item) => {
 
+    const arr = JSON.parse(localStorage.getItem("tasks")) || [];
 
+    const newArr = arr.filter(task => task.id !== item.id)
+
+    localStorage.setItem("tasks", JSON.stringify(newArr))
+
+    showTasks()
+}
 
 showTasks()
