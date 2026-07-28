@@ -5,6 +5,14 @@ const nav_btn_cancel = document.querySelector(".cancel")
 const tasks_div = document.querySelector(".tasks")
 const text = document.querySelector(".no-tasks")
 const clearAll = document.querySelector(".clear-all")
+let editingId = null;
+const body = document.querySelector("body")
+const themebtn = document.querySelector(".theme")
+const submitbtn = document.querySelector(".submit")
+
+themebtn.addEventListener("click", () => {
+    body.classList.toggle("body")
+})
 
 
 nav_btn.addEventListener("click", () => {
@@ -14,7 +22,11 @@ nav_btn.addEventListener("click", () => {
 
 nav_btn_cancel.addEventListener("click", () => {
     form_div.style.display = "none",
-        nav_btn_cancel.style.display = "none"
+    nav_btn_cancel.style.display = "none"
+
+    form.task.value = ""
+    form.description.value = ""
+    form.category.value = ""
 })
 
 form.addEventListener("submit", (e) => {
@@ -28,19 +40,45 @@ form.addEventListener("submit", (e) => {
         return
     }
 
-    const newTask = {
-        id: Date.now(),
-        task,
-        description,
-        category,
-        isCompleted: false
+    if (editingId) {
+
+        const arr = JSON.parse(localStorage.getItem("tasks")) || [];
+
+
+        const editingTask = arr.find((taskItem) => taskItem.id === editingId)
+
+        editingTask.task = task
+        editingTask.description = description
+        editingTask.category = category
+
+        editingId = ""
+
+        form.submit.value = "Add Task"
+
+        form_div.style.display = "none"
+
+        nav_btn_cancel.style.display = "none"
+
+        localStorage.setItem("tasks", JSON.stringify(arr));
+
+        showTasks()
+
+    } else {
+
+        const newTask = {
+            id: Date.now(),
+            task,
+            description,
+            category,
+            isCompleted: false
+        }
+
+        const arr = JSON.parse(localStorage.getItem("tasks")) || [];
+
+        arr.push(newTask)
+
+        localStorage.setItem("tasks", JSON.stringify(arr));
     }
-
-    const arr = JSON.parse(localStorage.getItem("tasks")) || [];
-
-    arr.push(newTask)
-
-    localStorage.setItem("tasks", JSON.stringify(arr));
 
     e.target[0].value = ""
 
@@ -53,19 +91,18 @@ form.addEventListener("submit", (e) => {
 const showTasks = () => {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-    if(tasks.length === 0){
+    if (tasks.length === 0) {
         tasks_div.innerHTML = `<h3>No Tasks Added Yet.</h3>`
-    }else{
+    } else {
 
         tasks_div.innerHTML = ""
 
         tasks.forEach(item => {
 
-        const element = document.createElement("div")
+            const element = document.createElement("div")
 
-        element.classList.add("task");
 
-        element.innerHTML = `
+            element.innerHTML = `
     <div class="task">
         <div class="task-top">
             <h1>${item.task}</h1>
@@ -87,20 +124,30 @@ const showTasks = () => {
             const edit = element.querySelector(".edit")
 
             element.querySelector(".complete").addEventListener("click", () => {
-                markComplete(item,edit)
+                markComplete(item, edit)
             })
 
             element.querySelector(".delete").addEventListener("click", () => {
                 deleteTask(item)
             })
 
-            
+            element.querySelector(".edit").addEventListener("click", () => {
+                form_div.style.display = "flex";
+                nav_btn_cancel.style.display = "inline"
+                editingId = item.id
+                form.task.value = item.task
+                form.description.value = item.description
+                form.category.value = item.category
+                if(editingId){
+                   form.submit.value = "Update Task"
+                }
+            })
 
-        tasks_div.append(element)
+            tasks_div.append(element)
 
 
 
-    });
+        });
     }
 
 
@@ -108,20 +155,20 @@ const showTasks = () => {
 
 const markComplete = (item, edit) => {
     const arr = JSON.parse(localStorage.getItem("tasks")) || [];
-    
+
 
     const task = arr.find((taskItem) => taskItem.id === item.id)
-    
+
     task.isCompleted = true;
-    
-    
+
+
     localStorage.setItem("tasks", JSON.stringify(arr))
 
-    if(task.isCompleted){
+    if (task.isCompleted) {
         edit.style.display = "none"
     }
     showTasks()
-    
+
 }
 
 clearAll.addEventListener("click", () => {
