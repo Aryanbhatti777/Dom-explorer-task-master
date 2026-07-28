@@ -16,7 +16,6 @@
         <div>
             <button class="theme">Theme</button>
             <button class="nav-btn">Add Task</button>
-            <button class="cancel">Cancel</button>
             <button class="clear-all">Clear All</button>
         </div>
     </nav>
@@ -33,17 +32,20 @@
                     <option value="personal">Personal</option>
                     <option value="chill">Chill</option>
                 </select>
-                <input type="submit" value="Add Task" name="submit">
+                <div>
+                    <input type="submit" value="Add Task" name="submit">
+                <button class="cancel">Cancel</button>
+                </div>
             </form>
         </div>
 
         <h1 class="y-task">Your Tasks</h1>
 
         <div class="search-box">
-            <i class="ri-search-line"></i>
-            <input type="text" placeholder="Search your tasks by name, description or category" class="search">
-            <button class="search-btn">Search</button>
-            <button class="all">All</button>
+           <div class="search-div"> <i class="ri-search-line"></i>
+            <input type="text" placeholder="Search your tasks" class="search"></div>
+            <div><button class="search-btn">Search</button>
+            <button class="all">All</button></div>
         </div>
 
         <div class="tasks">
