@@ -167,7 +167,40 @@ input[type="submit"]{
 }
 
 .no-tasks{
-    color: grey;
+    color: rgb(119, 57, 57);
     font-size: 1.5rem;
     display: none
+}
+
+.search-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: relative
+
+}
+
+.search-box i{
+    position: absolute;
+    left: 5vw;
+    font-size: 1.4rem;
+}
+
+.search{
+    padding: 1rem 3rem;
+    width: 70vw;
+    font-size: 1.1rem
+}
+
+.search-box button{
+    padding: 1rem 2rem;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background-color: rgba(10, 10, 128, 0.774);
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-left: 1rem;
 }

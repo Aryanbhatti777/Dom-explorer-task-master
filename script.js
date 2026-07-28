@@ -9,6 +9,15 @@ let editingId = null;
 const body = document.querySelector("body")
 const themebtn = document.querySelector(".theme")
 const submitbtn = document.querySelector(".submit")
+const search = document.querySelector(".search")
+let searchValue = ""
+const searchBtn = document.querySelector(".search-btn")
+const allbtn = document.querySelector(".all")
+
+searchBtn.addEventListener("click", () => {
+    searchValue = search.value
+    showTasks()
+})
 
 themebtn.addEventListener("click", () => {
     body.classList.toggle("body")
@@ -88,16 +97,33 @@ form.addEventListener("submit", (e) => {
 
 })
 
+search.addEventListener("keypress", (e) => {
+    
+   if(e.key === "Enter"){
+    searchValue = search.value
+    showTasks()
+   }
+   
+})
+
+allbtn.addEventListener("click", () => {
+    searchValue = ""
+    search.value = ""
+    showTasks()
+})
+
 const showTasks = () => {
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     if (tasks.length === 0) {
-        tasks_div.innerHTML = `<h3>No Tasks Added Yet.</h3>`
+        tasks_div.innerHTML = `<p>No Tasks Added Yet.</p>`
     } else {
+
+        const filtered = tasks.filter(items => items.task.toLowerCase().includes(searchValue.toLowerCase()) || items.description.toLowerCase().includes(searchValue.toLowerCase()) || items.category.toLowerCase().includes(searchValue.toLowerCase()))
 
         tasks_div.innerHTML = ""
 
-        tasks.forEach(item => {
+        filtered.forEach(item => {
 
             const element = document.createElement("div")
 
